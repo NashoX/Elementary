@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 687c637c10967ec4aba7aed97d898981, type: 3}
   m_Name: Dark
   m_EditorClassIdentifier: 
-  nombreElemento: Dark
-  colorParticulas: {r: 0.1981132, g: 0, b: 0.1432249, a: 0}
+  elementName: 
+  particleColor: {r: 0.2830189, g: 0, b: 0.17785038, a: 0}

@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: -5010689170202015071}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,7 +209,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntoDisparo: {fileID: 0}
-  elementoSeleccionado: {fileID: 11400000, guid: 753fcb0567eecfe41b804719bef1dee5, type: 2}
-  ejecucionSeleccionada: {fileID: 11400000, guid: 6d2141e7bed1989478f6d6115feabb10, type: 2}
-  modificadorSeleccionado: {fileID: 11400000, guid: 8c03068eebebffc4c85fb16f038e1a5d, type: 2}
+  spellSeleccionado: {fileID: 0}
   energia: 200

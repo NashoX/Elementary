@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 687c637c10967ec4aba7aed97d898981, type: 3}
   m_Name: Wind
   m_EditorClassIdentifier: 
-  nombreElemento: Wind
-  colorParticulas: {r: 0.23113209, g: 1, b: 0.47897485, a: 0}
+  elementName: 
+  particleColor: {r: 0.36320752, g: 1, b: 0.49043018, a: 0}

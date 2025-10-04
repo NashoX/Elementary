@@ -1,63 +1,65 @@
 using UnityEngine;
 
-public class EnemyGolpe : MonoBehaviour
+public class EnemyMelee : MonoBehaviour
 {
-    [Header("Referencias")]
-    public Transform objetivo; // el Player
-    public Vida vidaJugador;
+    [Header("References")]
+    public Transform target;       // Player
+    private Health playerHealth;   // reference to player's Health
 
-    [Header("Movimiento")]
-    public float velocidad = 3f;
+    [Header("Movement")]
+    public float speed = 3f;
 
-    [Header("Ataque")]
-    public float distanciaAtaque = 2f;  // distancia mínima para intentar golpear
-    public float daño = 20f;            // daño que hace el golpe
-    public float tiempoEntreGolpes = 1.5f;
+    [Header("Attack")]
+    public float attackRange = 2f;      // minimum distance to attack
+    public float damage = 20f;          // damage dealt per hit
+    public float timeBetweenAttacks = 1.5f;
     [Range(0f, 1f)]
-    public float chanceAcertar = 0.7f;   // 70% de probabilidad de acertar
+    public float hitChance = 0.7f;      // 70% chance to hit
 
-    private float contadorGolpe = 0f;
+    private float attackCooldown = 0f;
 
     void Start()
     {
-        if (objetivo != null)
-            vidaJugador = objetivo.GetComponent<Vida>();
+        if (target != null)
+            playerHealth = target.GetComponent<Health>();
     }
 
     void Update()
     {
-        if (objetivo == null) return;
+        if (target == null) return;
 
-        // Mover hacia el jugador
-        Vector3 direccion = (objetivo.position - transform.position).normalized;
-        transform.position += direccion * velocidad * Time.deltaTime;
+        // Move towards the player
+        Vector3 direction = (target.position - transform.position).normalized;
+        transform.position += direction * speed * Time.deltaTime;
 
-        // Mirar al jugador
-        transform.LookAt(new Vector3(objetivo.position.x, transform.position.y, objetivo.position.z));
+        // Look at the player
+        transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
 
-        // Contador de cooldown
-        contadorGolpe -= Time.deltaTime;
+        // Cooldown timer
+        attackCooldown -= Time.deltaTime;
 
-        // Intentar ataque si está cerca y el cooldown terminó
-        float distancia = Vector3.Distance(transform.position, objetivo.position);
-        if (distancia <= distanciaAtaque && contadorGolpe <= 0f)
+        // Attempt attack if close and cooldown finished
+        float distance = Vector3.Distance(transform.position, target.position);
+        if (distance <= attackRange && attackCooldown <= 0f)
         {
-            LanzarGolpe();
-            contadorGolpe = tiempoEntreGolpes;
+            PerformAttack();
+            attackCooldown = timeBetweenAttacks;
         }
     }
 
-    void LanzarGolpe()
+    void PerformAttack()
     {
-        // Probabilidad de acierto
-        if (Random.value <= chanceAcertar)
+        if (playerHealth == null) return;
+
+        // Chance to hit
+        if (Random.value <= hitChance)
         {
-            vidaJugador.RecibirDaño(daño);
-            Debug.Log("Enemy golpeó al Player!");
+            playerHealth.TakeDamage(damage);
+            Debug.Log("Enemy hit the Player!");
         }
         else
         {
-            Debug.Log("Enemy falló el golpe!");
+            Debug.Log("Enemy missed the attack!");
         }
     }
 }

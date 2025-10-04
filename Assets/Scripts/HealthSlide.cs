@@ -1,20 +1,22 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class PlayerUI : MonoBehaviour
+
+public class HealthSlide : MonoBehaviour
 {
-    public Vida vidaJugador; // referencia al script Vida del Player
-    public Slider sliderVida;
-    public TMP_Text textoVida; // opcional, para mostrar "50 / 100"
+    public Health playerHealth; // referencia al script Health del jugador
+    public Slider healthSlider;
+    public TMP_Text healthText; // opcional, para mostrar "50 / 100"
 
     void Update()
     {
-        
-        if (vidaJugador == null) return;
+        if (playerHealth == null) return;
 
-        sliderVida.value = vidaJugador.vidaActual / vidaJugador.vidaMaxima;
+        float currentHealth = playerHealth.CurrentHealth;
 
-        if (textoVida != null)
-            textoVida.text = $"{vidaJugador.vidaActual} / {vidaJugador.vidaMaxima}";
+        healthSlider.value = currentHealth / playerHealth.maxHealth;
+
+        if (healthText != null)
+            healthText.text = $"{currentHealth} / {playerHealth.maxHealth}";
     }
 }

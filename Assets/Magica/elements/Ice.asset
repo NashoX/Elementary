@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 687c637c10967ec4aba7aed97d898981, type: 3}
   m_Name: Ice
   m_EditorClassIdentifier: 
-  nombreElemento: Ice
-  colorParticulas: {r: 0.495283, g: 1, b: 0.9709718, a: 0}
+  elementName: 
+  particleColor: {r: 0.3066038, g: 1, b: 0.80104065, a: 0}

@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 1735598438738272846}
   - component: {fileID: 3600357377921255807}
   - component: {fileID: -3670584223138047503}
+  - component: {fileID: 5087997142028344092}
   m_Layer: 0
   m_Name: Enemy2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,3 +154,17 @@ MonoBehaviour:
   "da\xF1o": 20
   tiempoEntreGolpes: 1.5
   chanceAcertar: 0.7
+--- !u!114 &5087997142028344092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4585695743291406087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3929053b73c9a429a0848d801055b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vidaMaxima: 100
+  vidaActual: 0

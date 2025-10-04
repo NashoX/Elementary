@@ -1,13 +1,14 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-[CreateAssetMenu(fileName = "NuevoModificador", menuName = "Elementary Magic/Modificador")]
-public class ModificadorSO : ScriptableObject
+[CreateAssetMenu(fileName = "NewModifier", menuName = "Magic/Modifier")]
+public class ModifierSO : ScriptableObject
 {
-    [Header("Datos del Modificador")]
-    public string nombreModificador;
+    [Header("Modifier Name")]
+    public string modifierName;
 
-    [Header("Multiplicadores")]
-    public float multiplicadorDaño = 1f;
-    public float multiplicadorVelocidad = 1f;
-    public float multiplicadorCosto = 1f;
+    [Header("Stat Multipliers")]
+    public float damageMultiplier = 1f;
+    public float speedMultiplier = 1f;
+    public float manaCostMultiplier = 1f;
+    public float sizeMultiplier = 1f;
 }

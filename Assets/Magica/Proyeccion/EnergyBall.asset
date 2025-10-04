@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91362cafa80c8b4aa151040d71e4e01, type: 3}
   m_Name: EnergyBall
   m_EditorClassIdentifier: 
-  nombreEjecucion: EnergyBall
-  danoBase: 30
-  velocidadBase: 7
-  tamanoBase: 10
-  costoBase: 40
-  prefabProyectil: {fileID: 0}
+  executionName: 
+  baseDamage: 10
+  baseSpeed: 5
+  baseSize: 1
+  baseManaCost: 20
+  projectilePrefab: {fileID: 6098071839670152553, guid: fa5e84f5c4c119e468df8c98e51b4471, type: 3}

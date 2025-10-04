@@ -1,30 +1,44 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-public class Vida : MonoBehaviour
+public class Health : MonoBehaviour
 {
-    public float vidaMaxima = 100f;
-    public float vidaActual;
+    [Header("Stats")]
+    public float maxHealth = 100f;
+    private float currentHealth;
+
+    [Header("Settings")]
+    public bool destroyOnDeath = true; // enemies
+    public bool isPlayer = false;
+
+    public float CurrentHealth => currentHealth; // lectura pÃºblica
 
     void Start()
     {
-        vidaActual = vidaMaxima;
+        currentHealth = maxHealth;
     }
 
-    // Método para recibir daño
-    public void RecibirDaño(float cantidad)
+    public void TakeDamage(float amount)
     {
-        vidaActual -= cantidad;
-        Debug.Log(name + " recibió daño. Vida actual: " + vidaActual);
+        currentHealth -= amount;
+        currentHealth = Mathf.Max(currentHealth, 0);
 
-        if (vidaActual <= 0f)
+        Debug.Log($"{gameObject.name} took {amount} damage. Remaining health: {currentHealth}");
+
+        if (currentHealth <= 0)
+            Die();
+    }
+
+    private void Die()
+    {
+        Debug.Log($"{gameObject.name} died.");
+
+        if (isPlayer)
         {
-            Morir();
+            Debug.Log("ðŸ’€ Player died. Implement Game Over here.");
         }
-    }
-
-    void Morir()
-    {
-        Debug.Log(name + " murió.");
-        Destroy(gameObject);
+        else if (destroyOnDeath)
+        {
+            Destroy(gameObject);
+        }
     }
 }

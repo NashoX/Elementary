@@ -1,62 +1,54 @@
 ﻿using UnityEngine;
 
-public class PlayerMagia : MonoBehaviour
+public class SpellCasting : MonoBehaviour
 {
-    [Header("Punto de disparo del hechizo")]
-    public Transform puntoDisparo; // dónde aparece el proyectil
-
-    [Header("Hechizo seleccionado")]
-    public ElementoSO elementoSeleccionado;
-    public EjecucionSO ejecucionSeleccionada;
-    public ModificadorSO modificadorSeleccionado;
-
-    [Header("Energía del jugador")]
-    public float energia = 100f;
+    public Transform firePoint;
+    public Spell spellSelected;
+    public float energy = 100f;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0)) // click izquierdo
-        {
-            LanzarHechizo();
-        }
+        if (Input.GetMouseButtonDown(0))
+            CastSpell();
     }
 
-    void LanzarHechizo()
+    void CastSpell()
     {
-        // Crear un hechizo combinando Elemento + Ejecución + Modificador
-        Spell spell = new Spell(elementoSeleccionado, ejecucionSeleccionada, modificadorSeleccionado);
-
-        // Chequear si el jugador tiene energía suficiente
-        if (energia < spell.costoMana)
+        if (spellSelected == null)
         {
-            Debug.Log("⚠️ No hay suficiente energía!");
+            Debug.LogError("❌ No spell selected!");
             return;
         }
 
-        // Gastar energía
-        energia -= spell.costoMana;
+        spellSelected.Initialize();
 
-        // Instanciar el proyectil desde la ejecución
-        GameObject proyectil = Instantiate(spell.ejecucion.prefabProyectil, puntoDisparo.position, puntoDisparo.rotation);
+        if (energy < spellSelected.manaCost)
+        {
+            Debug.Log("Not enough energy!");
+            return;
+        }
 
-        // Ajustar tamaño
-        proyectil.transform.localScale = Vector3.one * spell.tamaño;
+        energy -= spellSelected.manaCost;
 
-        // Aplicar color del elemento si hay partículas
-        ParticleSystem ps = proyectil.GetComponent<ParticleSystem>();
+        GameObject proj = Instantiate(
+            spellSelected.execution.projectilePrefab,
+            firePoint.position,
+            firePoint.rotation
+        );
+
+        proj.transform.localScale = Vector3.one * spellSelected.size;
+
+        ParticleSystem ps = proj.GetComponent<ParticleSystem>();
         if (ps != null)
         {
             var main = ps.main;
-            main.startColor = spell.elemento.colorParticulas;
+            main.startColor = spellSelected.element.particleColor;
         }
 
-        // Darle velocidad al proyectil (requiere Rigidbody en el prefab)
-        Rigidbody rb = proyectil.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.velocity = transform.forward * spell.velocidad;
-        }
+        Projectile projScript = proj.GetComponent<Projectile>();
+        if (projScript != null)
+            projScript.Configure(spellSelected.damage, spellSelected.speed);
 
-        Debug.Log($"✨ Lanzado {spell.elemento.nombreElemento} + {spell.ejecucion.nombreEjecucion} con daño {spell.daño}, costo {spell.costoMana}, tamaño {spell.tamaño}");
+        Debug.Log($"🔥 Casted {spellSelected.element.elementName} + {spellSelected.execution.executionName} with damage {spellSelected.damage}");
     }
 }

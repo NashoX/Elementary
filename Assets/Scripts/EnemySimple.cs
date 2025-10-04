@@ -2,39 +2,45 @@ using UnityEngine;
 
 public class EnemySimple : MonoBehaviour
 {
-    public Transform objetivo; // jugador
-    public float velocidad = 3f;
-    public float distanciaAtaque = 1.5f;
-    public float daño = 10f;
-    public float tiempoEntreGolpes = 1f;
+    [Header("References")]
+    public Transform target;        // Player
+    private Health playerHealth;
 
-    private float contadorGolpe = 0f;
+    [Header("Movement")]
+    public float speed = 3f;
 
-    private Vida vidaJugador;
+    [Header("Attack")]
+    public float attackRange = 1.5f;
+    public float damage = 10f;
+    public float timeBetweenAttacks = 1f;
+
+    private float attackCooldown = 0f;
 
     void Start()
     {
-        vidaJugador = objetivo.GetComponent<Vida>();
+        if (target != null)
+            playerHealth = target.GetComponent<Health>();
     }
 
     void Update()
     {
-        if (objetivo == null) return;
+        if (target == null) return;
 
-        // Mover hacia el jugador
-        Vector3 direccion = (objetivo.position - transform.position).normalized;
-        transform.position += direccion * velocidad * Time.deltaTime;
+        Vector3 direction = (target.position - transform.position).normalized;
+        transform.position += direction * speed * Time.deltaTime;
 
-        // Mirar al jugador
-        transform.LookAt(new Vector3(objetivo.position.x, transform.position.y, objetivo.position.z));
+        transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
 
-        // Ataque si está cerca
-        contadorGolpe -= Time.deltaTime;
-        if (Vector3.Distance(transform.position, objetivo.position) <= distanciaAtaque && contadorGolpe <= 0f)
+        attackCooldown -= Time.deltaTime;
+
+        if (Vector3.Distance(transform.position, target.position) <= attackRange && attackCooldown <= 0f)
         {
-            vidaJugador.RecibirDaño(daño);
-            contadorGolpe = tiempoEntreGolpes;
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(damage);
+                Debug.Log("Enemy hit the Player!");
+            }
+            attackCooldown = timeBetweenAttacks;
         }
     }
 }
-

@@ -1,9 +1,9 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NuevoElemento", menuName = "Elementary Magic/Elemento")]
-public class ElementoSO : ScriptableObject
+[CreateAssetMenu(fileName = "NewElement", menuName = "Magic/Element")]
+public class ElementSO : ScriptableObject
 {
-    [Header("Datos del Elemento")]
-    public string nombreElemento;
-    public Color colorParticulas;   // Para efectos visuales de partículas
+    [Header("Element Data")]
+    public string elementName;
+    public Color particleColor;   // Particle color for visual effects
 }

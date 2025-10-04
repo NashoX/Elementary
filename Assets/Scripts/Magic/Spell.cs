@@ -1,41 +1,32 @@
 using UnityEngine;
 
-[System.Serializable]
-public class Spell
+[CreateAssetMenu(menuName = "Magic/Spell")]
+public class Spell : ScriptableObject
 {
-    public ElementoSO elemento;
-    public EjecucionSO ejecucion;
-    public ModificadorSO modificador;
+    [Header("Components of the spell")]
+    public ElementSO element;      // <--- debe coincidir con ElementSO
+    public ExecutionSO execution;  // <--- debe coincidir con ExecutionSO
+    public ModifierSO modifier;    // <--- debe coincidir con ModifierSO
 
-    public float daño;
-    public float velocidad;
-    public float tamaño;
-    public float costoMana;
+    [Header("Calculated stats (readonly)")]
+    public float damage;
+    public float speed;
+    public float manaCost;
+    public float size;
 
-    // Constructor
-    public Spell(ElementoSO el, EjecucionSO ej, ModificadorSO mod)
+    public void Initialize()
     {
-        elemento = el;
-        ejecucion = ej;
-        modificador = mod;
+        if (element == null || execution == null || modifier == null)
+        {
+            Debug.LogError("? Spell incomplete: missing Element, Execution, or Modifier.");
+            return;
+        }
 
-        // Stats calculados con multiplicadores
-        daño = ej.danoBase * mod.multiplicadorDaño;
-        velocidad = ej.velocidadBase * mod.multiplicadorVelocidad;
-        tamaño = ej.tamanoBase; // podés multiplicar por un modificador si querés
-        costoMana = ej.costoBase * mod.multiplicadorCosto;
-    }
+        damage = execution.baseDamage * modifier.damageMultiplier;
+        speed = execution.baseSpeed * modifier.speedMultiplier;
+        manaCost = execution.baseManaCost * modifier.manaCostMultiplier;
+        size = execution.baseSize * modifier.sizeMultiplier;
 
-    // ? Método para imprimir en consola (para SpellTester)
-    public void ImprimirStats()
-    {
-        Debug.Log("?? Hechizo creado:");
-        Debug.Log("Elemento: " + elemento.nombreElemento);
-        Debug.Log("Ejecución: " + ejecucion.nombreEjecucion);
-        Debug.Log("Modificador: " + modificador.nombreModificador);
-        Debug.Log("Daño: " + daño);
-        Debug.Log("Velocidad: " + velocidad);
-        Debug.Log("Tamaño: " + tamaño);
-        Debug.Log("Costo de maná: " + costoMana);
+        Debug.Log($"? Spell initialized: {element.elementName} + {execution.executionName}");
     }
 }
