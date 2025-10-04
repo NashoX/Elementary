@@ -15,6 +15,9 @@ GameObject:
   - component: {fileID: 3532692375764833353}
   - component: {fileID: -3599765513819793160}
   - component: {fileID: -5847825195721945127}
+  - component: {fileID: -3743931373273770965}
+  - component: {fileID: 103884807240514400}
+  - component: {fileID: -5010689170202015071}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -149,8 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ea94302b707164596a057d9d47da27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidadMovimiento: 5
-  sensibilidadMouse: 2
+  velocidadMovimiento: 10
+  sensibilidadMouse: 5
+  gravedad: -9.81
   controller: {fileID: -5847825195721945127}
   camara: {fileID: 0}
 --- !u!143 &-5847825195721945127
@@ -179,3 +183,51 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3743931373273770965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9188771591028058921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3929053b73c9a429a0848d801055b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vidaMaxima: 100
+  vidaActual: -620
+--- !u!114 &103884807240514400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9188771591028058921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5aba9d8aa3b1134e8dfca3ca282ae52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puntoDisparo: {fileID: 0}
+  elementoSeleccionado: {fileID: 0}
+  ejecucionSeleccionada: {fileID: 0}
+  modificadorSeleccionado: {fileID: 0}
+  energia: 100
+--- !u!114 &-5010689170202015071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9188771591028058921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5aba9d8aa3b1134e8dfca3ca282ae52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puntoDisparo: {fileID: 0}
+  elementoSeleccionado: {fileID: 11400000, guid: 753fcb0567eecfe41b804719bef1dee5, type: 2}
+  ejecucionSeleccionada: {fileID: 11400000, guid: 6d2141e7bed1989478f6d6115feabb10, type: 2}
+  modificadorSeleccionado: {fileID: 11400000, guid: 8c03068eebebffc4c85fb16f038e1a5d, type: 2}
+  energia: 200
